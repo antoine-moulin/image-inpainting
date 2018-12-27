@@ -1,7 +1,6 @@
-############################################
-################## README ##################
-############################################
+<h1> README </h1> 
 
+<h2> Image Inpainting </h2>
 
 There are several types of files in this projet :
 - the GUI files, which contain a python program to run a GUI
