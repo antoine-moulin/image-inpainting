@@ -68,7 +68,12 @@ It is very important to follow this rule about the names of image and mask in da
 
 <tt>Inspect_Data.py</tt> : it contains a few functions to explore the data genarated with the tests made with <tt>GUI_for_test.py</tt>
 
+<h2> An example </h2>
 
+Here is an example of inpainting obtained using our GUI:
+
+![results/selfie_before.jpg](results/selfie_before.jpg)
+![results/selfie_after.jpg](results/selfie_after.jpg)
 
 **NB** :
 
