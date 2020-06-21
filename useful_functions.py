@@ -9,12 +9,6 @@ from skimage import io as skio
 
 
 def viewimage(im, normalise=True, min_value=0.0, max_value=255.0):
-    """
-    Cette fonction fait afficher l'image EN NIVEAUX DE GRIS dans gimp. Si un gimp est deja ouvert il est utilise.
-    Par defaut normalise=True. Et dans ce cas l'image est normalisee entre 0 et 255 avant d'être sauvegardee.
-    Si normalise=False MINI et MAXI seront mis a 0 et 255 dans l'image resultat
-    """
-
     imt = np.float32(im.copy())
     if platform.system() == 'Darwin':  # Mac
         prephrase = 'open -a Gimp-2.10.app '
@@ -38,19 +32,13 @@ def viewimage(im, normalise=True, min_value=0.0, max_value=255.0):
         imt[imt < 0] = 0
         imt[imt > 1] = 1
 
-    nomfichier = tempfile.mktemp('TPIMA.jpg')
+    nomfichier = tempfile.mktemp('tmp_image.jpg')
     commande = prephrase + nomfichier + endphrase
     skio.imsave(nomfichier, imt)
     os.system(commande)
 
 
 def viewimage_color(im, normalise=True, min_value=0.0, max_value=255.0):
-    """
-    Cette fonction fait afficher l'image EN NIVEAUX DE GRIS dans gimp. Si un gimp est deja ouvert il est utilise.
-    Par defaut normalise=True. Et dans ce cas l'image est normalisee entre 0 et 255 avant d'être sauvegardee.
-    Si normalise=False MINI(defaut 0) et MAXI (defaut 255) seront mis a 0 et 255 dans l'image resultat
-    """
-
     imt = np.float32(im.copy())
     if platform.system() == 'Darwin':  # Mac
         prephrase = 'open -a Gimp-2.10.app '
@@ -70,7 +58,7 @@ def viewimage_color(im, normalise=True, min_value=0.0, max_value=255.0):
         imt[imt < 0] = 0
         imt[imt > 1] = 1
 
-    nomfichier = tempfile.mktemp('TPIMA.pgm')
+    nomfichier = tempfile.mktemp('tmp_image.pgm')
     commande = prephrase + nomfichier + endphrase
     skio.imsave(nomfichier, imt)
     os.system(commande)

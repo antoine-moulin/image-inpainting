@@ -158,7 +158,7 @@ class ImageInpainting:
 
                 empty_matrix.append(new_line)
 
-        self.pixels_matrix = np.matrix(empty_matrix)
+        self.pixels_matrix = np.array(empty_matrix)
 
         # build the patches matrices
         # we store all patches in a matrix of lists in order to avoid operation wastes
@@ -223,7 +223,6 @@ class ImageInpainting:
 
         else:
             while len(self.fillFront_pixels) > 0:  # while the fillFront is not empty
-
                 display_result_count += 1
                 self.count = 0
 
@@ -231,8 +230,7 @@ class ImageInpainting:
                 priorities_list = self.compute_priorities()
 
                 # step 2 : find highest priority pixel
-                highest_priority_pixel = self.find_highest_priority_pixel(priorities_list)[
-                    0]  # [0] because we take only the pixel, not the tuple
+                highest_priority_pixel = self.find_highest_priority_pixel(priorities_list)[0]
 
                 # step 3 : fill the patch AND update confidences
                 self.fill_patch(highest_priority_pixel)
@@ -430,7 +428,7 @@ class ImageInpainting:
             self.fillFront_pixels = []
             return 0
 
-        # STEP 2: Search for pixels of the FillFront
+        # Step 2: Search for pixels of the FillFront
         considered_pixels = []
         self.fillFront_pixels = []
         self.fillFront_pixels = self.search_fill_front_pixels(start_pixel, self.fillFront_pixels, considered_pixels)
@@ -711,11 +709,13 @@ class ImageInpainting:
             return self.patches_matrix[i_pixel, j_pixel]
 
     def compute_patch(self, pixel, shorten=False):
-        """ returns a list [patch_list, is_target_zone] containing : 
+        """
+        Returns a list [patch_list, is_target_zone] containing:
             - a list of all pixels of the patch which center is the parameter
             - a boolean that states if there are "target zone" pixels in the patch
             
-            The "shorten" parameter states if the size of the patch must be the usual one or the "short" one."""
+        The "shorten" parameter states if the size of the patch must be the usual one or the "short" one.
+        """
 
         i_center = pixel.get_i()
         j_center = pixel.get_j()
@@ -782,17 +782,14 @@ class ImageInpainting:
         # transfer values
         for i in range(-self.height_margin, self.height_margin + 1):
             for j in range(-self.width_margin, self.width_margin + 1):
-                if (0 <= i_target + i < self.nb_lines) and (0 <= j_target + j < self.nb_columns) and (
-                        0 <= i_source + i < self.nb_lines) and (0 <= j_source + j < self.nb_columns):
+                if (0 <= i_target + i < self.nb_lines) and (0 <= j_target + j < self.nb_columns) and \
+                   (0 <= i_source + i < self.nb_lines) and (0 <= j_source + j < self.nb_columns):
                     if self.pixels_matrix[i_target + i, j_target + j].get_confidence() == 0:  # fill only blank pixels
-                        new_value = self.pixels_matrix[
-                            i_source + i, j_source + j].get_value()  # get value at the source pixel
+                        new_value = self.pixels_matrix[i_source + i, j_source + j].get_value()  # value at source pixel
 
-                        # update matrix
-                        self.pixels_matrix[i_target + i, j_target + j].set_value(
-                            new_value)  # update value in the matrix
-                        self.pixels_matrix[i_target + i, j_target + j].set_confidence(
-                            new_confidence)  # update confidence in the matrix
+                        # update value and confidence in the matrix
+                        self.pixels_matrix[i_target + i, j_target + j].set_value(new_value)
+                        self.pixels_matrix[i_target + i, j_target + j].set_confidence(new_confidence)
 
                         # update image
                         self.image[i, j] = new_value
@@ -808,7 +805,6 @@ class ImageInpainting:
             raise Exception("Both patches don't have the same length (", len(patch1), " vs ", len(patch2), " ).")
 
         else:
-
             if self.is_color_image:  # first case : color image
 
                 for i in range(len(patch1)):
@@ -830,7 +826,6 @@ class ImageInpainting:
                             return threshold
 
             else:  # second case : black and white image
-
                 for i in range(len(patch1)):
 
                     pixel1 = patch1[i]

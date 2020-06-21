@@ -22,9 +22,9 @@ parent_folder_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.cur
 
 # convention for the mask: 1 if unknown, 0 if known
 # convention for the GUI
-canvas_width, canvas_height = 1000, 800
-buttons_margin_x1, buttons_margin_y1 = .8 * canvas_width, .05 * canvas_height
-buttons_margin_x2, buttons_margin_y2 = .01 * canvas_width, .65 * canvas_height
+canvas_width, canvas_height = 1000, 700
+buttons_margin_x1, buttons_margin_y1 = .8 * canvas_width, .005 * canvas_height
+buttons_margin_x2, buttons_margin_y2 = .01 * canvas_width, .6 * canvas_height
 
 # build the root window
 master = Tk()  # must be done at the beginning so as to initialize specific variables such as IntVar() objects
@@ -47,7 +47,7 @@ frequency_stringvar.set('1')
 nb_clusters_stringvar = StringVar()
 nb_clusters_stringvar.set('1')
 optimization_method_stringvar = StringVar()
-optimization_method_stringvar.set('Method 1: Clustering on pixels')
+optimization_method_stringvar.set('1: Pixel clustering')
 
 # booleans
 is_mask_browsed = False
@@ -93,16 +93,16 @@ def browse_image():
 
         # display new buttons
         color_button.place(x=buttons_margin_x2, y=buttons_margin_y2)
-        optimization_method_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 25)
-        combobox_optimization_method.place(x=buttons_margin_x2, y=buttons_margin_y2 + 50)
-        nb_clusters_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 85)
-        combobox_nb_clusters.place(x=buttons_margin_x2, y=buttons_margin_y2 + 110)
-        nb_clusters_message2.place(x=buttons_margin_x2 + 150, y=buttons_margin_y2 + 115)
-        patch_size_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 145)
-        patch_size_box.place(x=buttons_margin_x2, y=buttons_margin_y2 + 165)
-        computation_patch_size_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 195)
-        computation_patch_size_box.place(x=buttons_margin_x2, y=buttons_margin_y2 + 215)
-        inpainting_button.place(x=buttons_margin_x2, y=buttons_margin_y2 + 245)
+        optimization_method_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 35)
+        combobox_optimization_method.place(x=buttons_margin_x2 + 140, y=buttons_margin_y2 + 35)
+        nb_clusters_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 70)
+        combobox_nb_clusters.place(x=buttons_margin_x2 + 120, y=buttons_margin_y2 + 70)
+        nb_clusters_message2.place(x=buttons_margin_x2 + 180, y=buttons_margin_y2 + 70)
+        patch_size_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 105)
+        patch_size_box.place(x=buttons_margin_x2 + 140, y=buttons_margin_y2 + 105)
+        computation_patch_size_message.place(x=buttons_margin_x2, y=buttons_margin_y2 + 140)
+        computation_patch_size_box.place(x=buttons_margin_x2 + 180, y=buttons_margin_y2 + 140)
+        inpainting_button.place(x=buttons_margin_x2, y=buttons_margin_y2 + 175)
 
         # display image and allow drawing
         wrong_format_image = Image.open(filename)
@@ -141,7 +141,7 @@ def browse_mask():
 
         # display mask
         master.photoImage_object = photo_image_object
-        window.create_image(0.6 * canvas_width, 0.67 * canvas_height, anchor=NW, image=photo_image_object)
+        window.create_image(0.6 * canvas_width, 0.4 * canvas_height, anchor=NW, image=photo_image_object)
 
         loaded_mask = skio.imread(filename, as_gray=False)
         loaded_mask = np.array(loaded_mask)
@@ -162,8 +162,8 @@ def enable_mask_browsing():
 
     if is_mask_browsed:
         # display add browsing commands
-        browse_mask_message.place(x=buttons_margin_x1, y=buttons_margin_y1 + 280, width=150, height=72)
-        browse_mask_button.place(x=buttons_margin_x1, y=buttons_margin_y1 + 350)
+        # browse_mask_message.place(x=buttons_margin_x1, y=buttons_margin_y1 + 280, width=150, height=72)
+        browse_mask_button.place(x=buttons_margin_x1, y=buttons_margin_y1 + 200)
     else:
         print('Mask browsing unabled')
         browse_mask_message.place_forget()
@@ -218,11 +218,11 @@ def set_frequency():
 
 def set_optimization_method():
     global optimization_method_stringvar, optimization_method
-    if optimization_method_stringvar.get() == 'Method 1: Clustering on pixels':
+    if optimization_method_stringvar.get() == '1: Pixel clustering':
         optimization_method = 1
-    elif optimization_method_stringvar.get() == 'Method 2: Clustering on patches':
+    elif optimization_method_stringvar.get() == '2: Patch clustering':
         optimization_method = 2
-    elif optimization_method_stringvar.get() == 'Method 3: Search mask':
+    elif optimization_method_stringvar.get() == '3: Search mask':
         optimization_method = 3
     else:
         raise Exception("ERROR: The clustering method '", optimization_method_stringvar.get(), "' is unknown.")
@@ -324,57 +324,53 @@ window.pack(expand=YES, fill=BOTH)
 
 # Right side
 # browse button
-browse_message = Label(master, text='Choose a \'.jpg\', \'.jpeg\' or \'.ppm\' file:', wraplength=150)
-browse_message.place(x=buttons_margin_x1, y=buttons_margin_y1, width=150, height=72)
-
-browse_button = Button(text='Browse', command=browse_image, width=10, height=2)
-browse_button.place(x=buttons_margin_x1 + 30, y=buttons_margin_y1 + 70)
+browse_button = Button(text='Browse an image', command=browse_image, width=15, height=2)
+browse_button.place(x=buttons_margin_x1, y=buttons_margin_y1 + 10)
 
 # display frequency button
-frequency_message = Label(master, text='Choose the frequency of the display (using GIMP):', wraplength=150)
-frequency_message.place(x=buttons_margin_x1, y=buttons_margin_y1 + 110, width=150, height=72)
+frequency_message = Label(master, text='Frequency of the display (GIMP):', wraplength=175)
+frequency_message.place(x=buttons_margin_x1, y=buttons_margin_y1 + 50, width=175, height=72)
 
 text_font = ('1', '10', '20', 'Only at the end', 'None')
-combobox_frequency = ttk.Combobox(values=text_font, width=14, textvariable=frequency_stringvar)
-combobox_frequency.place(x=buttons_margin_x1, y=buttons_margin_y1 + 180)
+combobox_frequency = ttk.Combobox(values=text_font, width=10, textvariable=frequency_stringvar)
+combobox_frequency.place(x=buttons_margin_x1, y=buttons_margin_y1 + 100)
 
 # mask options text
-mask_message = Label(master, text='Draw the mask on image or:', wraplength=250)
-mask_message.place(x=buttons_margin_x1 - 40, y=buttons_margin_y1 + 220)
+mask_message = Label(master, text='Draw the mask on image or:', wraplength=175)
+mask_message.place(x=buttons_margin_x1, y=buttons_margin_y1 + 140)
 
 # mask option button
 mask_checkbox = Checkbutton(text='Load a pre-existing mask?', variable=mask_intvar, onvalue=1, offvalue=0,
                             command=enable_mask_browsing)
-mask_checkbox.place(x=buttons_margin_x1 - 20, y=buttons_margin_y1 + 250)
+mask_checkbox.place(x=buttons_margin_x1, y=buttons_margin_y1 + 160)
 
 # mask browsing button
-browse_mask_message = Label(master, text='Choose a \'.jpg\', \'.jpeg\' or \'.ppm\' file:', wraplength=150)
-browse_mask_button = Button(text='Browse for the mask', command=browse_mask, width=16, height=2)
+browse_mask_button = Button(text='Browse a mask', command=browse_mask, width=15, height=2)
 
 # Left side
 # color check box
 color_button = Checkbutton(text='B&W image?', variable=color_intvar, onvalue=1, offvalue=0, command=enable_color)
 
 # clustering method
-optimization_method_message = Label(master, text='Choose an optimisation method for this test:')
+optimization_method_message = Label(master, text='Optimisation method:')
 text_font_optimization_methods = (
-    'Method 1: Clustering on pixels', 'Method 2: Clustering on patches', 'Method 3: Search mask'
+    '1: Pixel clustering', '2: Patch clustering', '3: Search mask'
 )
-combobox_optimization_method = ttk.Combobox(values=text_font_optimization_methods, width=25,
+combobox_optimization_method = ttk.Combobox(values=text_font_optimization_methods, width=18,
                                             textvariable=optimization_method_stringvar)
 
 # number of clusters
-nb_clusters_message = Label(master, text='Enter the number of clusters for this image:')
+nb_clusters_message = Label(master, text='Number of clusters:')
 text_font_clusters = ('1', '10', '20', '30', '40', '50')
-combobox_nb_clusters = ttk.Combobox(values=text_font_clusters, width=14, textvariable=nb_clusters_stringvar)
+combobox_nb_clusters = ttk.Combobox(values=text_font_clusters, width=4, textvariable=nb_clusters_stringvar)
 nb_clusters_message2 = Label(master, text='(useless for method 3)')
 
 # patch size
-patch_size_message = Label(master, text='Select the size of the filling patch:')
+patch_size_message = Label(master, text='Size of the filling patch:')
 patch_size_box = Spinbox(master, from_=3, to=21, increment=2, textvariable=patch_size_intvar, width=5, command=set_patch_size)
 
 # computation patch size
-computation_patch_size_message = Label(master, text='Select the size of the computation patch:')
+computation_patch_size_message = Label(master, text='Size of the computation patch:')
 computation_patch_size_box = Spinbox(master, from_=3, to=21, increment=2, textvariable=computation_patch_size_intvar,
                                      width=5, command=set_computation_patch_size)
 
