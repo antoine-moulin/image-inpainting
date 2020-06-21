@@ -1,6 +1,6 @@
 # Image Inpainting
 
-__Update 06/21/2020__: I haven't changed the way the interface is coded or the way the calculations are done, although both are important. The first could be done with PyQt, the second with numba. This update is just to make the project easier to read and use. But there is definitely room for improvement.
+__Update 06/21/2020__: I haven't changed the way the interface is coded or the way the calculations are done, although both are important. The first could be done with PyQt, the second with numba. This update is just to make the project easier to read and to use. But there is definitely room for improvement.
 
 ## Description
 
