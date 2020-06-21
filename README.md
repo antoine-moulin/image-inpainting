@@ -1,5 +1,7 @@
 # Image Inpainting
 
+__Update 06/21/2020__: I haven't changed the way the interface is coded or the way the calculations are done, although both are important. The first could be done with PyQt, the second with numba. This update is just to make the project easier to read and use. But there is definitely room for improvement.
+
 ## Description
 
 Image inpainting makes it possible to erase elements present in an image and replace them with a plausible background, in particular by reproducing textures when the area to be filled is relatively large and by propagating linear structures such as contours.
@@ -38,7 +40,11 @@ In order to use ``GUI.py``:
 4. Choose the frequency of the display (in GIMP)
 5. Click on Start inpainting
 
-In order to use ``GUI_for_tests.py``:
+Here is an example of how the GUI is (note that instead of loading the mask, one can directly draw on the image):
+
+<p align="center"><img src="results/GUI_screen.png" width="750"/></p>
+
+The GUI for the tests is similar (although it has not been updated, see the first remark). In order to use ``GUI_for_tests.py``:
 1. Click on Browse to search the folder containing your data set
 2. Select the parameter you want to change during the tests, and its range
 3. Select the others parameters
@@ -51,7 +57,9 @@ In order to use ``GUI_for_tests.py``:
 There are 3 class files: ``image_inpainting.py``, ``pixel_inpainting.py``, ``test.py``.
 
   ``image_inpainting.py`` contains the class ``ImageInpainting`` and all the methods necessary to make an inpainting.
+  
   ``pixel_inpainting.py`` contains the class ``PixelInpainting`` used to represent a pixel in the image and is used by ``image_inpainting.py``.
+  
   ``test.py`` contains a class ``Test`` that representents a test made on one image. It is used by the ``GUI_for_tests.py`` file.
 
 
@@ -68,11 +76,14 @@ It is important to follow this rule about the names of image and mask in data di
 ``Inspect_Data.py``: it contains a few functions to explore the data generated with the tests made with ``GUI_for_test.py``.
 
 
-## An example
+## Examples
 
-Here is an example of inpainting obtained using our GUI:
+Here are two examples of inpainting obtained using our GUI:
 
-![results/selfie_before.jpg](results/selfie_before.jpg)
-![results/selfie_after.jpg](results/selfie_after.jpg)
+- Removing someone from a selfie
+<p align="center"><img src="results/selfie_before.jpg" width="450"/>  <img src="results/selfie_after.jpg" width="450"/></p>
+
+- Removing a stoplight
+<p align="center"><img src="results/inpainting_stoplight.gif"/></p>
 
 __NB__: if you want to do an inpainting without using any optimization method you can just chose method number 1 (clustering on pixels) with a number of clusters equal to 1.
