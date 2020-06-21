@@ -25,8 +25,7 @@ if not classes_path in sys.path :
 
 
 ### CLASS IMPORTS ###
-import Image as ImageProject # to avoid confusion with other python build-in librairies
-import Test as Test
+from classes.test import Test
 
 
 
