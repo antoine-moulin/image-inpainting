@@ -24,12 +24,12 @@ __Step 3__: Install the environment.
 * ``source inpainting-env/bin/activate`` (Linux) or ``source inpainting-env/Scripts/activate`` (Windows)
 * ``pip install -r requirements.txt``
 
-__Step 4__: Launch the GUI. ``python -m GUI.py``.
+__Step 4__: Launch the General User Interface (GUI). ``python -m GUI.py``.
 
 
 ## Use the GUI
 
-There are two GUI files: <tt>GUI.py</tt> and <tt>GUI_for_tests.py</tt>. The first one makes it possible to make an inpainting on a single image by drawing a mask on it or loading it from your own directory. However, no data are recorded about this inpainting and you cannot compare statistical performance. The second one makes it possible to record data about an inpainting made on a whole dataset of images. However you cannot draw your own masks with, to work properly, it requires a file named "mask.jpg" in the folder of each image of the dataset.
+There are two GUI files: ``GUI.py`` and ``GUI_for_tests.py``. The first one makes it possible to make an inpainting on a single image by drawing a mask on it or loading it from your own directory. However, no data are recorded about this inpainting and you cannot compare statistical performance. The second one makes it possible to record data about an inpainting made on a whole dataset of images. However you cannot draw your own masks with, to work properly, it requires a file named ``mask.jpg`` in the folder of each image of the dataset.
 
 In order to use ``GUI.py``: 
 1. Click on Browse to search your image
@@ -50,22 +50,23 @@ In order to use ``GUI_for_tests.py``:
 
 There are 3 class files: ``image_inpainting.py``, ``pixel_inpainting.py``, ``test.py``.
 
-  ``image_inpainting.py`` contains all the methods necessary to make an inpainting.
-  ``pixel_inpainting.py`` representents a pixel in the image and is used by ``image_inpainting.py``.
-  ``test.py`` is a class that representents a Test made on one image. It is used by the ``GUI_for_tests.py`` file.
+  ``image_inpainting.py`` contains the class ``ImageInpainting`` and all the methods necessary to make an inpainting.
+  ``pixel_inpainting.py`` contains the class ``PixelInpainting`` used to represent a pixel in the image and is used by ``image_inpainting.py``.
+  ``test.py`` contains a class ``Test`` that representents a test made on one image. It is used by the ``GUI_for_tests.py`` file.
 
 
 ## The dataset directory
 
-The "dataset" directory is used by the <tt>GUI_for_tests.py</tt> file. It contains a set of folders which are called "data1", "data2", "data3" etc. In each data folder, you can find a file called "image.jpg", another one called "mask.jpg" and a directory called "tests" which contains python objects from the <tt>Test.py</tt> class. (Those objects were saved thanks to the module pickle)
-It is very important to follow this rule about the names of image and mask in data directories. Otherwise the program cannot find them.
+The ``dataset`` directory is used by the ``GUI_for_tests.py`` file. It contains a set of folders which are called ``data1``, ``data2``, ``data3``, etc. In each data folder, you can find a file called ``image.jpg``, another one called ``mask.jpg`` and a directory called ``tests`` which contains python objects from the ``Test`` class.
+It is important to follow this rule about the names of image and mask in data directories. Otherwise the program cannot find them.
 
 
 ## The other files
 
-<tt>useful_functions.py</tt> : it contains two "viewimage" functions which call GIMP with specific commands. Please check that these commands are adapted to your laptop before running the program.  
+``useful_functions.py``: it contains two ``viewimage`` functions which call GIMP with specific commands. Please check that these commands are adapted to your laptop before running the program.
 
-<tt>Inspect_Data.py</tt> : it contains a few functions to explore the data genarated with the tests made with <tt>GUI_for_test.py</tt>
+``Inspect_Data.py``: it contains a few functions to explore the data generated with the tests made with ``GUI_for_test.py``.
+
 
 ## An example
 
@@ -74,6 +75,4 @@ Here is an example of inpainting obtained using our GUI:
 ![results/selfie_before.jpg](results/selfie_before.jpg)
 ![results/selfie_after.jpg](results/selfie_after.jpg)
 
-__NB__:
-
-- if you want to do an inpainting without using any optimization method you can just chose method number 1 (clustering on pixels) with a number of clusters equal to 1
+__NB__: if you want to do an inpainting without using any optimization method you can just chose method number 1 (clustering on pixels) with a number of clusters equal to 1.
