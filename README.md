@@ -14,13 +14,17 @@ __Reference__
 
 __Step 1__: Install GIMP here [https://www.gimp.org/downloads/](https://www.gimp.org/downloads/). It is useful for the calls made in ``useful_functions.py``.
 
-__Step 2__: Install the environment.
+__Step 2__: Clone the repository.
+* ``git clone https://github.com/moulinantoine/image-inpainting.git``
+* ``cd image-inpainting``
+
+__Step 3__: Install the environment.
 * ``pip install virtualenv``
 * ``virtualenv inpainting-env``
 * ``source inpainting-env/bin/activate`` (Linux) or ``source inpainting-env/Scripts/activate`` (Windows)
 * ``pip install -r requirements.txt``
 
-__Step 3__: Launch the GUI. ``python -m GUI.py``.
+__Step 4__: Launch the GUI. ``python -m GUI.py``.
 
 
 ## Use the GUI
