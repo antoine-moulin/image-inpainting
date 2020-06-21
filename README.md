@@ -1,18 +1,17 @@
-<h1> README </h1> 
+# Image Inpainting
 
-<h2> Image Inpainting </h2>
+## Description
 
 Image inpainting makes it possible to erase elements present in an image and replace them with a plausible background, in particular by reproducing textures when the area to be filled is relatively large and by propagating linear structures such as contours.
 
-This project has been coded by [Jean Vassoyan](https://github.com/jvasso) and [Antoine Moulin](https://github.com/moulinantoine/) - students at Télécom Paris - under the supervision of [Alasdair Newson](https://sites.google.com/site/alasdairnewson/). It is based on the method described in this [paper](http://www.irisa.fr/vista/Papers/2004_ip_criminisi.pdf).
+This project has been coded by [Jean Vassoyan](https://github.com/jvasso) and [Antoine Moulin](https://github.com/moulinantoine/) - students at Télécom Paris - under the supervision of [Alasdair Newson](https://sites.google.com/site/alasdairnewson/). It is based on the method described in [[1]](http://www.irisa.fr/vista/Papers/2004_ip_criminisi.pdf).
 
-There are several types of files in this projet :
-- the GUI files, which contain a python program to run a GUI
-- the class files, which contain a python class
-- the dataset directory which contains a few folders with data on images
-- other files : <tt>useful_functions.py</tt> and <tt>Inspect_Data.py</tt>
+__Reference__
+[1] Criminisi, Antonio and Pérez, Patrick and Toyama, Kentaro. _Region Filling and Object Removal by Exemplar-Based Image Inpainting_. In IEEE transactions on image processing : a publication of the IEEE Signal Processing Society, 2004.
 
+## Getting started
 
+Step 1: Install GIMP here [https://www.gimp.org/downloads/](https://www.gimp.org/downloads/).
 
 <h2> The GUI Files </h2>
 
